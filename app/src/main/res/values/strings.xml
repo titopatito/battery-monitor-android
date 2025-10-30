@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Battery Monitor</string>
+    <string name="widget_description">Shows real-time battery voltage, current, and power data</string>
+</resources>

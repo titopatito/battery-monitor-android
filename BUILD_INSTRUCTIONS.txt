@@ -1,0 +1,200 @@
+================================================================================
+  BATTERY MONITOR - Android App Build Instructions
+================================================================================
+
+IMPORTANT: This is a NATIVE ANDROID APP that cannot run in Replit.
+You must export this code and build it in Android Studio.
+
+================================================================================
+  STEP 1: EXPORT FROM REPLIT
+================================================================================
+
+1. In Replit, click the three-dot menu (⋮) in the top-right
+2. Select "Download as ZIP"
+3. Save the file to your computer
+4. Extract the ZIP file to a folder (e.g., "BatteryMonitor")
+
+================================================================================
+  STEP 2: INSTALL ANDROID STUDIO
+================================================================================
+
+If you don't have Android Studio installed:
+
+1. Go to: https://developer.android.com/studio
+2. Download Android Studio for your operating system
+3. Run the installer
+4. Follow the setup wizard to install:
+   - Android SDK
+   - Android SDK Platform
+   - Android Virtual Device (for emulator)
+
+================================================================================
+  STEP 3: OPEN PROJECT IN ANDROID STUDIO
+================================================================================
+
+1. Launch Android Studio
+2. On the welcome screen, click "Open"
+   (Or go to File → Open if you already have a project open)
+3. Navigate to the extracted "BatteryMonitor" folder
+4. Click "OK"
+5. Wait for Gradle sync to complete (this may take a few minutes)
+6. If prompted to update Gradle or plugins, click "Update"
+
+================================================================================
+  STEP 4: CONNECT AN ANDROID DEVICE (OPTION A - RECOMMENDED)
+================================================================================
+
+For best results, test on a real Android device:
+
+1. On your Android device:
+   - Go to Settings → About Phone
+   - Tap "Build Number" 7 times to enable Developer Options
+   - Go back to Settings → Developer Options (or System → Developer Options)
+   - Enable "USB Debugging"
+
+2. Connect your device to your computer via USB cable
+
+3. On your device, tap "Allow" when prompted to authorize USB debugging
+
+4. In Android Studio, you should see your device in the device dropdown
+   at the top of the window
+
+================================================================================
+  STEP 5: OR USE AN EMULATOR (OPTION B)
+================================================================================
+
+If you don't have a physical device:
+
+1. In Android Studio, click Tools → Device Manager
+2. Click "Create Virtual Device"
+3. Select a phone model (e.g., "Pixel 6") and click "Next"
+4. Select a system image (e.g., "Tiramisu" - API 33) and click "Next"
+   - If needed, click "Download" next to the system image first
+5. Click "Finish"
+6. Start the emulator by clicking the play button next to it
+
+================================================================================
+  STEP 6: BUILD AND RUN THE APP
+================================================================================
+
+1. In Android Studio, click the green "Run" button (▶) in the toolbar
+   (Or press Shift+F10)
+
+2. Select your connected device or running emulator from the list
+
+3. Click "OK"
+
+4. Wait for the build to complete (first build may take several minutes)
+
+5. The app will automatically install and launch on your device/emulator
+
+================================================================================
+  STEP 7: ADD THE HOME SCREEN WIDGET
+================================================================================
+
+After the app is installed:
+
+1. Long-press on an empty area of your home screen
+2. Tap "Widgets" in the menu that appears
+3. Scroll to find "Battery Monitor"
+4. Long-press the widget and drag it to your home screen
+5. Release to place it
+6. Resize the widget by dragging the corners
+7. The widget will start showing real-time battery data
+
+================================================================================
+  USING THE APP
+================================================================================
+
+Main App Features:
+- Real-time voltage display (in volts)
+- Real-time current display (in milliamps)
+- Real-time power consumption (in watts)
+- Battery level percentage with progress bar
+- Temperature monitoring
+- Estimated time to full charge (when charging)
+- Estimated time to full discharge (when on battery)
+- Battery health and technology information
+
+Widget Features:
+- Shows battery level, voltage, current, and power
+- Displays charge or discharge time estimate
+- Updates every 2 seconds
+- Tap to open the main app
+- Resizable (drag corners to resize)
+
+================================================================================
+  TROUBLESHOOTING
+================================================================================
+
+Problem: Gradle sync failed
+Solution: 
+  - Make sure you have internet connection
+  - Click "Try Again" in the error message
+  - Or go to File → Invalidate Caches and Restart
+
+Problem: Device not showing in Android Studio
+Solution:
+  - Check USB debugging is enabled on your device
+  - Try a different USB cable
+  - Revoke and re-authorize USB debugging
+
+Problem: App shows "0" for current and power
+Solution:
+  - This is normal on some devices/emulators
+  - The Android API may not expose these values on all hardware
+  - Try on a real Android device for accurate readings
+
+Problem: Time estimates show "N/A"
+Solution:
+  - The app needs time to learn your usage patterns
+  - Use the device normally for a few minutes
+  - Charge or discharge the battery to provide data points
+
+Problem: Widget not updating
+Solution:
+  - Remove and re-add the widget
+  - Check battery optimization settings for the app
+  - Restart your device
+
+================================================================================
+  BUILDING AN APK FILE
+================================================================================
+
+To create an installable APK file:
+
+1. In Android Studio, go to Build → Build Bundle(s) / APK(s) → Build APK(s)
+2. Wait for the build to complete
+3. Click "locate" in the notification that appears
+4. The APK will be at: app/build/outputs/apk/debug/app-debug.apk
+5. Copy this file to your Android device and open it to install
+
+For a release version:
+1. Go to Build → Generate Signed Bundle / APK
+2. Follow the wizard to create a keystore and sign your APK
+3. Use this for distribution
+
+================================================================================
+  ADDITIONAL RESOURCES
+================================================================================
+
+- Android Developer Documentation: https://developer.android.com
+- Android Studio User Guide: https://developer.android.com/studio/intro
+- Kotlin Programming: https://kotlinlang.org/docs/home.html
+
+================================================================================
+  SUPPORT
+================================================================================
+
+If you encounter issues:
+
+1. Check the README.md file for detailed information
+2. Verify your Android Studio and SDK are up to date
+3. Make sure your device meets minimum requirements (Android 5.0+)
+4. Check Android Studio's Logcat for error messages
+
+================================================================================
+
+Good luck building your Battery Monitor app!
+
+================================================================================
