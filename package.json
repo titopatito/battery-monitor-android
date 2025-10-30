@@ -1,0 +1,15 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "A native Android application that monitors battery metrics in real-time, including voltage, current, power consumption, and estimated charge/discharge times. Features a resizable home screen widget for quick access to battery information.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^22.0.0"
+  }
+}
