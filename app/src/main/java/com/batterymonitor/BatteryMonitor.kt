@@ -23,6 +23,10 @@ class BatteryMonitor(private val context: Context) {
     private var levelChangeRates = mutableListOf<Double>()
     private val maxRateHistory = 5
     
+    // Average current tracking
+    private val currentHistory = mutableListOf<Int>()
+    private val maxCurrentHistorySize = 5 // 5 seconds if updated every 1s
+    
     fun getBatteryData(): BatteryData {
         val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter ->
             context.registerReceiver(null, filter)
@@ -77,11 +81,18 @@ class BatteryMonitor(private val context: Context) {
         
         val technology = batteryStatus.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: "Unknown"
         
+        // Update current history for averaging
+        currentHistory.add(current)
+        if (currentHistory.size > maxCurrentHistorySize) {
+            currentHistory.removeAt(0)
+        }
+        val averageCurrent = if (currentHistory.isNotEmpty()) currentHistory.average().toInt() else current
+        
         updateCapacityEstimate(capacity, batteryPct)
         trackLevelChanges(level, isCharging)
         
-        val timeToFullCharge = calculateTimeToFullCharge(batteryPct, current, isCharging)
-        val timeToFullDischarge = calculateTimeToFullDischarge(batteryPct, current, isCharging)
+        val timeToFullCharge = calculateTimeToFullCharge(batteryPct, averageCurrent, isCharging)
+        val timeToFullDischarge = calculateTimeToFullDischarge(batteryPct, averageCurrent, isCharging)
         
         return BatteryData(
             voltage = voltage.toDouble(),
