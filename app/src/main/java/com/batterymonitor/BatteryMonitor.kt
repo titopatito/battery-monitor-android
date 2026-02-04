@@ -23,9 +23,9 @@ class BatteryMonitor(private val context: Context) {
     private var levelChangeRates = mutableListOf<Double>()
     private val maxRateHistory = 5
     
-    // Average current tracking
-    private val currentHistory = mutableListOf<Int>()
-    private val maxCurrentHistorySize = 5 // 5 seconds if updated every 1s
+    // Low pass filter for current
+    private var filteredCurrent: Double? = null
+    private val filterAlpha: Double = 0.1 // Alpha = dt / (RC + dt). dt=1s, RC=9s -> Alpha approx 0.1
     
     fun getBatteryData(): BatteryData {
         val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter ->
@@ -81,18 +81,19 @@ class BatteryMonitor(private val context: Context) {
         
         val technology = batteryStatus.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: "Unknown"
         
-        // Update current history for averaging
-        currentHistory.add(current)
-        if (currentHistory.size > maxCurrentHistorySize) {
-            currentHistory.removeAt(0)
+        // Update low pass filter for current
+        filteredCurrent = if (filteredCurrent == null) {
+            current.toDouble()
+        } else {
+            filteredCurrent!! + filterAlpha * (current.toDouble() - filteredCurrent!!)
         }
-        val averageCurrent = if (currentHistory.isNotEmpty()) currentHistory.average().toInt() else current
+        val smoothedCurrent = filteredCurrent!!.toInt()
         
         updateCapacityEstimate(capacity, batteryPct)
         trackLevelChanges(level, isCharging)
         
-        val timeToFullCharge = calculateTimeToFullCharge(batteryPct, averageCurrent, isCharging)
-        val timeToFullDischarge = calculateTimeToFullDischarge(batteryPct, averageCurrent, isCharging)
+        val timeToFullCharge = calculateTimeToFullCharge(batteryPct, smoothedCurrent, isCharging)
+        val timeToFullDischarge = calculateTimeToFullDischarge(batteryPct, smoothedCurrent, isCharging)
         
         return BatteryData(
             voltage = voltage.toDouble(),
